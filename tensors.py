@@ -37,3 +37,14 @@ tensor = torch.rand(3,4)
 print(f"\nShape of tensor: {tensor.shape}")
 print(f"Datatype of tensor: {tensor.dtype}")
 print(f"Device tensor is stored on: {tensor.device}")
+
+
+## Tensor Operations
+
+#Operations can be run on the GPU, typically at higher speeds. Tensors are created on CPU by default. 
+# Move tensors to GPU using '.to' if GPU is available. Copying large tensors across devices can be 
+# expensive in terms of time and memory.
+
+#Move tensor to GPU if available
+if torch.cuda.is_available():
+    tensor = tensor.to("cuda")
