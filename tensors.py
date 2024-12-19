@@ -90,3 +90,27 @@ print(agg_item, type(agg_item))
 print(f"{tensor} \n")
 tensor.add_(5)
 print(f"{tensor} \n")
+
+
+## Bridge with NumPy
+
+#Tensors on the CPU and NumPy arrays can share underlying memory locations, and changing one will change the other.
+#Tensor to NumPy array
+t = torch.ones(5)
+print(f"t: {t}")
+n = t.numpy()
+print(f"n: {n}")
+
+#A change in the tensor reflects in the NumPy array
+t.add_(1)
+print(f"t: {t}")
+print(f"n: {n}\n")
+
+#NumPy array to Tensor
+n = np.ones(5)
+t = torch.from_numpy(n)
+
+#A change in the NumPy array reflects in the tensor
+np.add(n, 1, out=n)
+print(f"t: {t}")
+print(f"n: {n}")
