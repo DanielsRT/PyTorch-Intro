@@ -75,3 +75,9 @@ z2 = tensor.mul(tensor)
 
 z3 = torch.rand_like(tensor)
 torch.mul(tensor, tensor, out=z3)
+
+#If you have a one-element tensor, for example by aggregating all values of a tensor into one value,
+# you can convert it to a Python numerical value using 'item()'
+agg = tensor.sum()
+agg_item = agg.item()
+print();print(agg_item, type(agg_item))
