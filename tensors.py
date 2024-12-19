@@ -59,7 +59,7 @@ print(tensor)
 
 #Use torch.cat to concatenate a sequence of tensors along a given dimension.
 t1 = torch.cat([tensor, tensor, tensor], dim=1)
-print(t1)
+print(f"{t1}\n")
 
 #Compute the matrix multiplication between two tensors. y1, y2, y3 will have the same value
 #'tensor.T' returns the transpose of a tensor
@@ -80,4 +80,13 @@ torch.mul(tensor, tensor, out=z3)
 # you can convert it to a Python numerical value using 'item()'
 agg = tensor.sum()
 agg_item = agg.item()
-print();print(agg_item, type(agg_item))
+print(agg_item, type(agg_item))
+
+#Operations that store the result into the operand and called in-place. They are denoted by a '_' suffix. 
+# For example: 'x.copy_(y)' will change x.
+
+#In-place operations save some memory, but can be problematic when computing derivatives because of an 
+# immediate loss of history; Hence, their use is discouraged.
+print(f"{tensor} \n")
+tensor.add_(5)
+print(f"{tensor} \n")
