@@ -51,3 +51,39 @@ for i in range(1, cols * rows + 1):
     plt.axis("off")
     plt.imshow(img.squeeze(), cmap="gray")
 plt.show()
+
+##Create a Custom Dataset Class
+
+#Custom 'Dataset' classes must implement '__init__', '__len__', and '__getite__'. In this implementation, 
+# FashionMNST images are stored in 'img_dir', and their labels are stored separately in a CSV file 'annotations_file'
+
+import os
+import pandas as pd
+from torchvision.io import read_image
+
+class CustomImageDataset(Dataset):
+    '''run once when instantiating the Dataset object.'''
+    def __init__(self, annotations_file, img_dir, transform=None, target_transform=None):
+        self.img_labels = pd.read_csv(annotations_file)
+        self.img_dir = img_dir
+        self.transform = transform
+        self.target_transform = target_transform
+
+    '''returns the number of samples in the dataset'''
+    def __len__(self):
+        return len(self.img_labels)
+    
+    '''
+    returns a sample from the dataset at the given index 'idx'. Based on the index, it find's the image's location 
+    on disk and converts that to a tensor using 'read_image'. Retrieves the corresponding label in 'self.img_labels' 
+    and calls the transform functions on them (if applicable). returns the tensor image and corresponding label in a tuple.
+    '''
+    def __getItem__(self, idx):
+        img_path = os.path.join(self.img_dir, self.img_labels.iloc[idx, 0])
+        image = read_image(img_path)
+        label = self.img_labels.iloc[idx, 1]
+        if self.transform:
+            image = self.transform(image)
+        if self.target_transform:
+            label = self.target_transform(label)
+        return image, label
