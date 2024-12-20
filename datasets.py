@@ -87,3 +87,15 @@ class CustomImageDataset(Dataset):
         if self.target_transform:
             label = self.target_transform(label)
         return image, label
+
+##Prepare data for training with DataLoaders
+
+#The Dataset retrieves features and lables one sample at a time. while training a model, you typically want to pass samples in batches, 
+# shuffle the data at every epoch to reduce model overfitting, and use Python's multiprocessing to speed up data retrieval.
+
+#DataLoader is an iterable that abstracts this complexity in an easy API
+
+from torch.utils.data import DataLoader
+
+train_dataloader = DataLoader(training_data, batch_size=64, shuffle=True)
+test_dataloader = DataLoader(test_data, batch_size=64, shuffle=True)
