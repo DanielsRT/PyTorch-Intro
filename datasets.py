@@ -90,8 +90,9 @@ class CustomImageDataset(Dataset):
 
 ##Prepare data for training with DataLoaders
 
-#The Dataset retrieves features and lables one sample at a time. while training a model, you typically want to pass samples in batches, 
-# shuffle the data at every epoch to reduce model overfitting, and use Python's multiprocessing to speed up data retrieval.
+#The Dataset retrieves features and lables one sample at a time. while training a model, you typically want to pass 
+# samples in batches, shuffle the data at every epoch to reduce model overfitting, and use Python's multiprocessing 
+# to speed up data retrieval.
 
 #DataLoader is an iterable that abstracts this complexity in an easy API
 
@@ -99,3 +100,18 @@ from torch.utils.data import DataLoader
 
 train_dataloader = DataLoader(training_data, batch_size=64, shuffle=True)
 test_dataloader = DataLoader(test_data, batch_size=64, shuffle=True)
+
+##Iterate through the DataLoader
+
+#Each iteration returns a batch of 64 train_features and train_labels. Since shuffle=True, after we iterate over all 
+# batches the data is shuffled. (For finer contrall over the data loading order, look at torch.utils.data.Sampler)
+
+#Display image and label
+train_features, train_labels = next(iter(train_dataloader))
+print(f"Feature batch shape: {train_features.size()}")
+print(f"Labels batch shape: {train_labels.size()}")
+img = train_features[0].squeeze()
+label = train_labels[0]
+plt.imshow(img, cmap="gray")
+plt.show()
+print(f"Label: {label}")
