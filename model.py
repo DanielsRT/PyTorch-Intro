@@ -64,3 +64,10 @@ print(f"Predicted class: {y_pred}")
 
 input_image = torch.rand(3,28,28)
 print(input_image.size())
+
+#Initialize the nn.Flatten layer to convert each 2D 28x28 image into a contiguous 
+# array of 784 pixel values(the minibatch dimension (at dim=0) is maintained).
+
+flatten = nn.Flatten()
+flat_image = flatten(input_image)
+print(flat_image.size())
