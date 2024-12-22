@@ -89,3 +89,16 @@ print(hidden1.size())
 print(f"\nBefore RELU: {hidden1}\n\n")
 hidden1 = nn.ReLU()(hidden1)
 print(f"After ReLU: {hidden1}")
+
+#nn.Sequential is an ordered container of modules. The data is passed through all the 
+# modules in the same order as defined. you can use sequential containers to put 
+# together a quick netowrk like seq_modules.
+
+seq_modules = nn.Sequential(
+    flatten,
+    layer1,
+    nn.ReLU(),
+    nn.Linear(20, 10)
+)
+input_image = torch.rand(3,28,28)
+logits = seq_modules(input_image)
