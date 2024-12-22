@@ -102,3 +102,11 @@ seq_modules = nn.Sequential(
 )
 input_image = torch.rand(3,28,28)
 logits = seq_modules(input_image)
+
+#The last linear layer of the neural network returns logits - raw values in [-infty,infty] - 
+# which are passed to the nn.Softmax module. The logits are scaled to values [0, 1] 
+# representing the model's predicted probabilities for each class. dim parameter indicated 
+# the dimension along which the values must sum to 1.
+
+softmax = nn.Softmax(dim=1)
+pred_probab = softmax(logits)
