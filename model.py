@@ -55,7 +55,7 @@ X = torch.rand(1, 28, 28, device=device)
 logits = model(X)
 pred_probab = nn.Softmax(dim=1)(logits)
 y_pred = pred_probab.argmax(1)
-print(f"Predicted class: {y_pred}")
+print(f"Predicted class: {y_pred}\n")
 
 ##Model layers
 
@@ -78,3 +78,14 @@ print(flat_image.size())
 layer1 = nn.Linear(in_features=28*28, out_features=20)
 hidden1 = layer1(flat_image)
 print(hidden1.size())
+
+#Non-linear activations are what create the complex mappings between the model's inputs 
+# and outputs. They are applied after linear transformations to introduce nonlinearity, 
+# helping neural networks learn a wide variety of phenomena.
+
+#In this model, we use nn.ReLU between our linear layers, but there's other activations 
+# to introduce non-linearity in your model.
+
+print(f"\nBefore RELU: {hidden1}\n\n")
+hidden1 = nn.ReLU()(hidden1)
+print(f"After ReLU: {hidden1}")
