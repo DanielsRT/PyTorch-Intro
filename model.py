@@ -110,3 +110,17 @@ logits = seq_modules(input_image)
 
 softmax = nn.Softmax(dim=1)
 pred_probab = softmax(logits)
+
+##Model Parameters
+
+#Many layers inside a neural network are parameterized, i.e. have associated weights and biases 
+# that are optimized during training. Subclassing nn.Module automatically tracks all fields 
+# defined inside your model object, and makes all parameters accessible using your model's 
+# parameters() or named_parameters() methods.
+
+#In this example, we iterate over each parameter, and print its size and a preview of its values.
+
+print(f"\nModel structure: {model}\n\n")
+
+for name, param in model.named_parameters():
+    print(f"Layer: {name} | Size: {param.size()} | Values: {param[:2]} \n")
