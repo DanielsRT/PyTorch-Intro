@@ -56,3 +56,11 @@ logits = model(X)
 pred_probab = nn.Softmax(dim=1)(logits)
 y_pred = pred_probab.argmax(1)
 print(f"Predicted class: {y_pred}")
+
+##Model layers
+
+#Take a sample minibatch of 3 images of size 28x28 and see what happens to it as we 
+# pass it through the network.
+
+input_image = torch.rand(3,28,28)
+print(input_image.size())
