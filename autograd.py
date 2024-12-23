@@ -33,3 +33,14 @@ loss = torch.nn.functional.binary_cross_entropy_with_logits(z, y)
 
 print(f"Gradient function for z = {z.grad_fn}")
 print(f"Gradient function for loss = {loss.grad_fn}")
+
+##Computing Gradients
+
+#To optimize weights of parameters in the neural network, we need to compute the derivatives 
+# of our loss function with respect to parameters, namely we need ∂loss/∂w and ∂loss/∂b under 
+# some fixed values of x and y. To compute those derivates, we call loss.backward(), and then 
+# retireve the values from w.grad and b.grad:
+
+loss.backward()
+print(w.grad)
+print(b.grad)
