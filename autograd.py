@@ -20,3 +20,16 @@ w = torch.randn(5, 3, requires_grad=True)
 b = torch.randn(3, requires_grad=True)
 z = torch.matmul(x, w)+b
 loss = torch.nn.functional.binary_cross_entropy_with_logits(z, y)
+
+#In this network, w and b are parameters which we need to optimize. To compute the 
+# gradients of loss function with respect to those variables, set the requires_grad 
+# property of those tensors.
+
+#You can set the value of requires_grad when created a tensor, or later by using x.requires_grad_(True)
+
+#This object knows how to compute the function in the forward direction, and also how 
+# to compute its derivative during the backward propagation step. A reference to the 
+# backward propagation function is stored in grad_fn property of a tensor.
+
+print(f"Gradient function for z = {z.grad_fn}")
+print(f"Gradient function for loss = {loss.grad_fn}")
