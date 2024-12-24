@@ -26,3 +26,6 @@ test_data = datasets.FashionMNIST(
     transform=ToTensor()
 )
 
+train_dataloader = DataLoader(training_data, batch_size=64)
+test_dataloader = DataLoader(test_data, batch_size=64)
+
