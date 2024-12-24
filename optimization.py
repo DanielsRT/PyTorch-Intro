@@ -1,4 +1,4 @@
-#Optimizing Model Parameters
+##Optimizing Model Parameters
 
 #Training a model is an iterative process; in each iteration the model makes a guess about 
 # the ouput, calculates the error in its guess(loss), collects the derivates of the error 
@@ -48,7 +48,7 @@ class NeuralNetwork(nn.Module):
 
 model = NeuralNetwork()
 
-#Hyperparameters
+##Hyperparameters
 
 #Hyperparameters are adjustable parameters that let you control the model optimization process. 
 # Different hyperparameter values can impact model training and convergence rates.
@@ -63,3 +63,55 @@ model = NeuralNetwork()
 learning_rate = 1e-3
 batch_size=64
 epochs = 5
+
+##Optimization Loop
+
+#Once we set our hyperparameters, we can then train and optimize our model with an optimization loop.
+#Each epoch consists of two main parts:
+# The Train Loop - iterate over the training dataset and try to converge to optimal parameters.
+# The Validation/Test Loop - iterate over the test dataset to check if model performance is improving.
+
+##Loss Function
+
+#When presented with some input data, our untrained network is not likely to give the correct answer. 
+# Loss function measures the degree of dissimilarity of obtained result to the target value, and it is 
+# the loss function we want to minimize during training. To calculate the loss we make a prediction using 
+# the inputs of our given data sample and compare it against the true data label value
+
+#Common loss functions include nn.MSELoss (Mean Square Error) for regression tasks, and nn.NLLLoss (Negative Log Likelihood) 
+# for classification. nn.CrossEntropyLoss combines nn.LogSoftmax and nn.NLLLoss.
+
+#We pass our model's output logits to nn.CrossEntropyLoss, which will normalize the logits and compute the prediction error.
+
+##Optimizer
+
+#Optimization is the process of adjusting model parameters to reduce model error in each training step. 
+# Optimization algorithms define how this process is performed (in this example we use Stochastic Gradient Descent). 
+# All optimization logic is encapsulated in the optimizer object. Here, we use the SGD optimizer; additionally, there 
+# are many different optimizers available in PyTorch such as ADAM and RMSProp, that work better for different kinds of 
+# models and data.
+
+#Inside the training loop, optimization happens in three steps:
+# Call optimizer.zero_grad() to reset the gradients of model parameters. Gradients by default add up; to 
+#   prevent double-counting, we explicitly zero them at each iteration.
+# Backpropagate the prediction loss with a call to loss.backward(). PyTorch deposits the gradients of the loss w.r.t. each parameter.
+# Once we have our gradients, we call optimizer.step() to adjust the parameters by the gradients collected in the backward pass.
+
+def train_loop(dataloader, model, loss_fn, optimizer):
+    size = len(dataloader.dataset)
+    # Set the model to training mode - important for batch normalizaiton and dropout layers
+    # Unnecessary in this situation, but good practice
+    model.train()
+    for batch, (X, y) in enumerate(dataloader):
+        # Compute prediction and loss
+        pred = model(X)
+        loss = loss_fn(pred, y)
+
+        # Backpropagation
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        if batch % 100 == 0:
+            loss, current = loss.item(), batch * len(X)
+            print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
