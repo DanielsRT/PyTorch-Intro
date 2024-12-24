@@ -47,3 +47,19 @@ class NeuralNetwork(nn.Module):
         return logits
 
 model = NeuralNetwork()
+
+#Hyperparameters
+
+#Hyperparameters are adjustable parameters that let you control the model optimization process. 
+# Different hyperparameter values can impact model training and convergence rates.
+
+#We define the following hyperparameters for training:
+# Number of Epochs - the number times to iterate over the dataset
+# Batch Size - the number of data samples propagated through the network before the parameters 
+#   are updated
+# Learning Rate - how much to update models parameters at each batch/epoch. Smaller values yield 
+#   slow learning speed, while large values may result in unpredictable behavior during training.
+
+learning_rate = 1e-3
+batch_size=64
+epochs = 5
