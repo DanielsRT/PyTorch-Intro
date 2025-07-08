@@ -6,14 +6,6 @@
 
 A beginner introduction to image recognition using PyTorch. This project demonstrates how to build, train, and evaluate a neural network on the FashionMNIST dataset.
 
-## Features
-- Basic implementation for image classification
-- Training/evaluation pipeline
-- Model saving/loading
-- Real-time performance metrics
-- Sample inference demonstration
-- GPU acceleration support
-
 ## Requirements
 - Python 3.8+
 - PyTorch 2.0+
